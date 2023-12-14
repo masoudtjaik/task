@@ -1,0 +1,28 @@
+{% extends 'post/base.html' %}
+{% block contain %}
+  <a class=" text-decoration-none "  href="{% url 'post:create' %}">Create New Post </a>
+    {% for post in post_comment  %}
+    <div class="col-sm-12 col-md-4 ">
+        <div class="card ">
+          <div class="card-body ">
+            <a class=" text-decoration-none " style="color: darkslategray;" href="{% url 'post:view' post.id %}"><h4 class="text-center">{{post.head_line}}</h4></a> 
+            <b class="card-text">category:</b>
+            {% for cat in post.category.all %}
+            <small style="color: sienna;">{{cat.name}},</small>
+            {% endfor %}
+            <p class="mt-3" style="color: blue;">
+            <b style="color: coral;">Authers:</b> {{post.auther.name}}</p>
+            <p style="font-family: Arial, Helvetica, sans-serif;color: brown;">likes: {{post.like}}</p>
+            <p style="font-family: Arial, Helvetica, sans-serif;color: brown;">Comments:{{post.comment_post.count}} </p>
+            <!-- <a href="{% url 'post:view' post.id %}" class="btn bg-warning text-danger" > Views</a> -->
+            <!-- <a href="{% url 'post:update' post.id %}" class="btn bg-info " > Update</a> -->
+
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+        <p>Empty </p>
+      {% endfor %}
+    
+{% endblock %}

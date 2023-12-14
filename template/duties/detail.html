@@ -1,0 +1,28 @@
+{% extends 'duties/base.html' %}
+
+{% block contain %}
+<style>
+    b{
+        color:blue;
+    }
+    p{
+        color:white;
+    }
+</style>
+    
+    <p class="text-light"><b >Name patient: </b> {{task.title}}</p>
+    <p> <b>Description:</b>  {{task.description}}</p>
+    <p> <b>Category:</b>  {{task.category.title}}</p>
+    <p> <b>Date :</b>  {{task.due_date}}</p>
+    <div class="row">
+        <form action='{% url 'task:details' task.id %}' method=Post novalidate >
+            {% csrf_token %}
+            {% if task.dlt != 1 %}
+               <input type="submit" class="btn btn-m  btn-success " value="Done" name='done'>
+               {% endif %}
+                <input type="submit" class="btn btn-info mx-1" value="Back" name='back' >
+          </form>
+        
+    </div>
+    
+{% endblock %}

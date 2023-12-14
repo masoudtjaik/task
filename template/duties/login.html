@@ -1,0 +1,24 @@
+{% extends 'duties/base.html' %}
+
+{% block contain %}
+<div class="d-flex justify-content-center my-5">
+    <div class="card text-center bg-secondary" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><p class="text-white-50">Login page</p></h5>
+                <form action="" method="post" width= 150px class="my-2" >
+                    {% csrf_token %}
+                    {% comment %} {{forms.as_p}} {% endcomment %}
+                    {% for form in forms  %}
+                        <b>{{form.label}}</b>
+                        <p>{{form}}</p>
+                        {% if form.errors %}
+                        <p style='color:red;'>{{form.errors}}</p>
+                        {% endif %}
+                    {% endfor %}
+            <input type="submit" value="Login" class="btn btn-success mt-2">
+            </form>
+            </div>
+            </div>
+    </div> 
+
+{% endblock %}

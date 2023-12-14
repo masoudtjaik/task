@@ -1,0 +1,48 @@
+{% extends 'duties/base.html' %}
+{%block search%}
+<form action='' method=Post novalidate >
+  {% csrf_token %} 
+  {{forms}}
+  <button type="submit" class="btn btn-outline-info mx-2 ">Serach</button>
+</form>
+{% if request.user.is_authenticated %}
+      <a class='btn btn-outline-primary' href='{% url 'task:logout'  %}'>Logout</a>
+
+   {% else %} 
+   <a class='btn btn-outline-primary' href='{% url 'task:login'  %}'>Login</a>
+
+      {% endif %}
+
+{% endblock %}
+
+{% block contain %}
+
+    {% for task in tasks %}
+    <div class="col-sm-12 col-md-4 my-3">
+        <div class="card  "  style="background-color:#FFFAF0;" >
+          <div class="card-body ">
+            <a class=" text-decoration-none " style="color: darkslategray;" href="{% url 'task:detail' task.id %}"><h4 class="text-center">{{task.title}}</h4></a> 
+            <p class="mt-3" style="color: blue;">
+            {% comment %} <b style="color: coral;">description:</b> {{task.description}}</p> {% endcomment %}
+            <b style="color: coral;">Category:</b>
+            <small>{{task.category.title}},</small> 
+            <p style="font-family: Arial, Helvetica, sans-serif;color: black;" class='mt-2'><b > Description:</b> {{task.description_10words}}...</p>
+            <p style="font-family: Arial, Helvetica, sans-serif;color: brown;" class='mt-2'>Date: {{task.due_date}}</p>
+            <p style="font-family: Arial, Helvetica, sans-serif;color: brown;">Status:{{task.status}} </p>
+            {% if request.user.username == 'masoudtj' %}
+            <p style="color:red;"><b class="text-dark">Username : </b>{{task.user.username}}</p>
+            {% endif %}
+            {% if task.dlt == 1 %}
+                  <p style="color:red;"> DONE!</p>
+              {% else %}
+              <p style="color:green;"> UNDONE</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+        <p>Empty   </p>
+      {% endfor %}
+    
+{% endblock %}
